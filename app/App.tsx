@@ -1,12 +1,23 @@
-import { statusBarPadding } from '@utils/status-bar';
-import { SignUp } from '@views/sign-up';
-import { SafeAreaView } from 'react-native';
+import { DefaultTheme } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import colors from '@utils/colors';
+import { Navigator } from 'app/navigator';
+import FlashMessage from 'react-native-flash-message';
+
+const Stack = createNativeStackNavigator();
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: colors.background
+  }
+}
 
 export default function App() {
   return (
-    <SafeAreaView className='items-center' style={{ paddingTop: statusBarPadding }}>
-      <SignUp />
-    </SafeAreaView>
+
+    <Navigator />
   );
 }
 

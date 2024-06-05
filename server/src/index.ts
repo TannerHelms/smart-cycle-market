@@ -10,6 +10,10 @@ app.use(express.static('src/public'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
+app.use(function (req, res, next) {
+    console.log(req.url)
+    next();
+} as express.RequestHandler)
 
 
 // API Routes
