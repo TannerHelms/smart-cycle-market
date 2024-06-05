@@ -5,12 +5,11 @@ import { FormNavigator } from '@ui/form-navigator';
 import { Keyboard } from '@ui/keyboard';
 import { WelcomeHeader } from '@ui/welcome-header';
 import { FormInput } from '@utils/text';
-import { SignInRes } from '@utils/types';
 import { newUserSchema, yupValidate } from '@utils/validator';
 import client from 'api/client';
 import { runAxiosAsync } from 'api/run-axios-async';
+import useAuth from 'app/hooks/use-auth';
 import { AuthStackParamList } from 'app/navigator/auth-navigator';
-import axios from 'axios';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
@@ -20,6 +19,7 @@ export interface SignUpProps {
 }
 
 export function SignUp(props: SignUpProps) {
+    const { signIn } = useAuth()
     const [userInfo, setUserInfo] = useState({
         name: '',
         email: '',
@@ -44,9 +44,9 @@ export function SignUp(props: SignUpProps) {
         if (error) return showMessage({ message: error, type: 'danger' })
         setLoading(true)
         const res = await runAxiosAsync<{ message: string }>(client.post('/auth/sign-up', values))
-        if (res) {
+        if (res?.message) {
             showMessage({ message: res.message, type: 'success' })
-            const signInRes = await runAxiosAsync<SignInRes>(client.post('/auth/sign-in', { email, password }))
+            signIn({ email, password })
         }
         setLoading(false)
     }
