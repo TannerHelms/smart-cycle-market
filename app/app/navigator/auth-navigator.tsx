@@ -26,6 +26,7 @@ export function AuthNavigator(props: AuthNavigatorProps) {
                 headerShown: false,
                 contentStyle: { paddingTop: statusBarPadding }
             }}>
+
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

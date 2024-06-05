@@ -33,3 +33,8 @@ export const newUserSchema = yup.object({
     email: yup.string().email("Invalid Email").required("Email must be valid"),
     ...password
 })
+
+export const signInSchema = yup.object({
+    email: yup.string().email("Invalid Email").required("Email must be valid"),
+    ...password
+})
