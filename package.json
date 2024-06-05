@@ -1,0 +1,23 @@
+{
+  "name": "smart-cycle-market",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/TannerHelms/smart-cycle-market.git",
+  "author": "TannerHelms <tannerhelms01@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "turbo dev"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "yarn@1.22.21",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
