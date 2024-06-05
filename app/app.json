@@ -1,11 +1,14 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "smart-cycle-market",
+    "slug": "scm",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "experiments": {
+      "tsConfigPaths": true
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

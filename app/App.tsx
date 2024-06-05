@@ -1,20 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { SignIn } from './app/views/sign-in';
+import { statusBarPadding } from '@utils/status-bar';
+import { SignIn } from '@views/sign-in';
+import { SafeAreaView } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView className={`items-center ${statusBarPadding}`}>
       <SignIn />
-    </View>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
