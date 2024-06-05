@@ -1,3 +1,3 @@
 import { Platform, StatusBar } from "react-native"
 
-export const statusBarPadding = Platform.OS === "android" ? `p-[${StatusBar.currentHeight!}px]` : ""
+export const statusBarPadding = Platform.OS === "android" ? StatusBar.currentHeight : 0
