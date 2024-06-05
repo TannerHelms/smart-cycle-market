@@ -1,5 +1,7 @@
 import { isValidObjectId } from 'mongoose';
 import * as yup from 'yup';
+import categories from './categories';
+import { parseISO } from 'date-fns';
 
 const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 const password = {
@@ -40,4 +42,21 @@ export const verifyTokenSchema = yup.object({
 export const resetPasswordSchema = yup.object({
     ...tokenAndId,
     ...password
+})
+
+export const newProductSchema = yup.object({
+    name: yup.string().required("Name is missing"),
+    price: yup.string().transform((value) => {
+        if (isNaN(+value)) return ''
+        return +value
+    }).required("Price is missing"),
+    category: yup.string().oneOf(categories, "Invalid Category!").required("Category is missing"),
+    purchasingDate: yup.string().transform((value) => {
+        try {
+            return parseISO(value)
+        } catch (err) {
+            return ''
+        }
+    }).required("Purchasing date is missing or invalid"),
+    description: yup.string().required("Description is missing"),
 })

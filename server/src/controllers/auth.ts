@@ -12,13 +12,9 @@ import mail from "src/utils/mail";
 import { profile } from "console";
 import PasswordResetTokenModel from "src/models/passwordResetToken";
 import { v2 as cloudinary } from 'cloudinary'
+import cloudUploader from "src/cloud";
 
-cloudinary.config({
-    cloud_name: process.env.COUD_NAME,
-    api_key: process.env.CLOUD_KEY,
-    api_secret: process.env.CLOUD_SECRET,
-    secure: true
-})
+
 
 export const createNewUser: RequestHandler = async (req, res) => {
     const { email, password, name } = req.body;
@@ -186,10 +182,10 @@ export const updateAvatar: RequestHandler = async (req, res) => {
     const user = await UserModel.findByIdAndUpdate(req.user.id)
     if (!user) return sendErrorRes(res, 'User not found!', Codes.NOT_FOUND)
     if (user.avatar?.id) {
-        await cloudinary.uploader.destroy(user.avatar.id)
+        await cloudUploader.destroy(user.avatar.id)
     }
 
-    const { secure_url: url, public_id: id } = await cloudinary.uploader.upload(avatar.filepath, {
+    const { secure_url: url, public_id: id } = await cloudUploader.upload(avatar.filepath, {
         width: 300,
         height: 300,
         crop: "thumb",
