@@ -6,7 +6,7 @@ export interface SignInProps {
 
 export function SignIn(props: SignInProps) {
     return (
-        <View>
+        <View className=''>
             <Text>SignIn</Text>
         </View>
     );
