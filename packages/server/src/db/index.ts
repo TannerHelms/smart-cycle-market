@@ -1,8 +1,8 @@
 import { connect } from 'mongoose'
 
-const uri = 'mongodb://localhost:27017/smart-cycle-market'
+console.log(process.env.DB_URL)
 
-connect(uri).then(() => {
+connect(process.env.DB_URL!!).then(() => {
     console.log('Connected to MongoDB')
 }).catch((err) => {
     console.log('Failed to connect to MongoDB: ', err.message)
