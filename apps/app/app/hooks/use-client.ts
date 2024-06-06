@@ -1,0 +1,53 @@
+import { Keys, asyncStorage } from "@utils/async-storage";
+import { baseUrl } from "api/client";
+import { runAxiosAsync } from "api/run-axios-async";
+import axios from "axios";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
+import { useDispatch } from "react-redux";
+import { updateAuthState } from "store/auth";
+import useAuth from "./use-auth";
+
+type Response = {
+    tokens: {
+        access: string
+        refresh: string
+    }
+}
+
+const authClient = axios.create({
+    baseURL: baseUrl,
+})
+const useClient = () => {
+    const dispatch = useDispatch()
+    const { authState } = useAuth()
+    const token = authState.profile?.accessToken
+
+    authClient.interceptors.request.use((config) => {
+        if (!config.headers.Authorization) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+    }, (error) => {
+        Promise.reject(error)
+    })
+
+    const refreshAuthLogic = async (failedRequest: any) => {
+        const refreshToken = await asyncStorage.get(Keys.REFRESH_TOKEN)
+        const options = { method: 'POST', data: { refreshToken }, url: `${baseUrl}/auth/refresh-token` }
+        const res = await runAxiosAsync<Response>(axios(options))
+        if (res?.tokens) {
+            failedRequest.response.config.headers.Authorization = `Bearer ${res.tokens.access}`
+            await asyncStorage.save(Keys.AUTH_TOKEN, res.tokens.access)
+            await asyncStorage.save(Keys.REFRESH_TOKEN, res.tokens.refresh)
+            dispatch(updateAuthState({ profile: { ...authState.profile!, accessToken: res.tokens.access }, pending: false }))
+            return Promise.resolve()
+        }
+    }
+
+    createAuthRefreshInterceptor(authClient, refreshAuthLogic)
+
+
+    return { authClient }
+}
+
+export default useClient;

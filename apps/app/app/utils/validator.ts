@@ -15,7 +15,7 @@ export const yupValidate = async <T extends object>(schema: yup.Schema, values: 
     }
 }
 
-const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+export const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 const password = {
     password: yup.string().required("Password is missing")
 }
@@ -37,4 +37,15 @@ export const newUserSchema = yup.object({
 export const signInSchema = yup.object({
     email: yup.string().email("Invalid Email").required("Email must be valid"),
     ...password
+})
+
+export const newProductSchema = yup.object({
+    name: yup.string().required("Name is missing"),
+    description: yup.string().required("Description is missing"),
+    price: yup.string().transform((value) => {
+        if (isNaN(+value)) return ""
+        return value
+    }).required("Product Price is missing"),
+    purchasingDate: yup.date().required("Purchasing Date is missing"),
+    category: yup.string().required("Category is missing")
 })

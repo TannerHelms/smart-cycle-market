@@ -9,8 +9,10 @@ import useAuth from 'app/hooks/use-auth';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Profile, updateAuthState } from 'store/auth';
-import { AppNavigator } from './app-navigator';
 import { AuthNavigator } from './auth-navigator';
+import TabNavigator from './tab-navigator';
+import useClient from 'app/hooks/use-client';
+import { Keys, asyncStorage } from '@utils/async-storage';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -22,14 +24,15 @@ const MyTheme = {
 
 export function Navigator() {
     const { authState } = useAuth()
+    const { authClient } = useClient()
     const dispatch = useDispatch()
 
     const fetchAuthState = async () => {
-        const token = await AsyncStorage.getItem('access-token')
+        const token = await asyncStorage.get(Keys.AUTH_TOKEN)
         if (!token) return
         dispatch(updateAuthState({ pending: true, profile: null }))
         const res = await runAxiosAsync<{ profile: Profile }>(
-            client.get('/auth/profile', {
+            authClient.get('/auth/profile', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -55,7 +58,7 @@ export function Navigator() {
                 <AuthNavigator />
             </SignedOut>
             <SignedIn>
-                <AppNavigator />
+                <TabNavigator />
             </SignedIn>
         </NavigationContainer>
     );

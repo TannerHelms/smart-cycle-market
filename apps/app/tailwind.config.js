@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         "primary": "#1C1C1F",
         "deActive": "#DCE4F2",
+        "backDrop": "rgba(0, 0, 0, 0.5)"
       }
     },
   },

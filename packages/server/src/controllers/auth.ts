@@ -163,7 +163,7 @@ export const updatePassword: RequestHandler = async (req, res) => {
 
     await PasswordResetTokenModel.findOneAndDelete({ owner: user._id })
     await mail.sendPasswordUpdateMessage(user.email)
-    res.json({ message: "Password reset succesfully!" })
+    res.json({ message: "Password reset successfully!" })
 }
 
 export const updateProfile: RequestHandler = async (req, res) => {
