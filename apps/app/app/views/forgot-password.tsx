@@ -29,7 +29,6 @@ export function ForgotPassword(props: ForgotPasswordProps) {
         }
         setLoading(true)
         const res = await runAxiosAsync<{ message: string }>(client.post("/auth/forgot-password", { email }))
-        console.log(res)
         setLoading(false)
         if (res) {
             showMessage({

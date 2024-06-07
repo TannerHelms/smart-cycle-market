@@ -22,13 +22,13 @@ declare global {
 export const isAuth: RequestHandler = async (req, res, next) => {
     try {
         const authToken = req.headers.authorization;
-        if (!authToken) return sendErrorRes(res, "Unauthorized Request", 403);
+        if (!authToken) return sendErrorRes(res, "Unauthorized Request - Missing auth token", 403);
 
         const token = authToken.split("Bearer ")[1]
         const payload = jwt.verify(token, process.env.JWT_SECRET!!) as { id: string }
 
         const user = await UserModel.findById(payload.id)
-        if (!user) return sendErrorRes(res, "Unauthorized Request", 403);
+        if (!user) return sendErrorRes(res, "Unauthorized Request - No user associated with token", 403);
 
         req.user = {
             id: user._id.toString(),
@@ -43,7 +43,7 @@ export const isAuth: RequestHandler = async (req, res, next) => {
             return sendErrorRes(res, "Session Expired!", 401);
         }
         if (error instanceof JsonWebTokenError) {
-            return sendErrorRes(res, "Unauthorized Access!", 401);
+            return sendErrorRes(res, "Unauthorized Access! - JWT Invalid", 401);
         }
         next(error)
     }

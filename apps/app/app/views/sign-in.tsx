@@ -44,7 +44,7 @@ export function SignIn(props: SignInProps) {
     return (
         <Keyboard>
             <SafeAreaView>
-                <View className='items-center w-screen p-4'>
+                <View className='items-center'>
                     <WelcomeHeader />
                     <View className='w-full mt-3'>
                         <FormInput placeholder='email' value={email} keyboardType='email-address' autoCapitalize='none' onChangeText={handleChange('email')} />

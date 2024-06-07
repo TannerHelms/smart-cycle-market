@@ -39,7 +39,7 @@ export function Navigator() {
             })
         )
         if (res) {
-            dispatch(updateAuthState({ pending: false, profile: res.profile }))
+            dispatch(updateAuthState({ pending: false, profile: { ...res.profile, accessToken: token } }))
         } else {
             dispatch(updateAuthState({ pending: false, profile: null }))
         }
@@ -54,12 +54,12 @@ export function Navigator() {
         <NavigationContainer
             theme={MyTheme}>
             <LoadingSpinner visible={authState.pending} />
-            <SignedOut>
+            {!authState.profile && (
                 <AuthNavigator />
-            </SignedOut>
-            <SignedIn>
+            )}
+            {authState.profile && (
                 <TabNavigator />
-            </SignedIn>
+            )}
         </NavigationContainer>
     );
 }

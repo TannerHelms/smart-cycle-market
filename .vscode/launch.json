@@ -4,18 +4,29 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
         {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
+            "name": "Attach",
+            "port": 9229,
+            "request": "attach",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\src\\index.ts",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
-        }
+            "type": "node"
+        },
+        {
+            "name": "Launch Server",
+            "program": "${workspaceFolder}\\pacakges\\server\\src\\index.ts",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+        },
+        {
+            "name": "React Native",
+            "cwd": "${workspaceFolder}\\apps\\app",
+            "type": "reactnativedirect",
+            "request": "attach"
+        },
     ]
 }

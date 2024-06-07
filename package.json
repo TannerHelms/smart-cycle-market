@@ -7,7 +7,13 @@
   "author": "TannerHelms <tannerhelms01@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "turbo dev"
+    "dev": "turbo dev",
+    "client": "cd apps/app && yarn dev",
+    "server": "cd packages/server && yarn dev",
+    "fly:deploy": "cd packages/server && fly deploy",
+    "debug": "adb logcat \"*:S\" ReactNative:V ReactNativeJS:V",
+    "errors": "adb logcat *:E",
+    "stack": "adb logcat \"*:S\" AndroidRuntime:E"
   },
   "devDependencies": {
     "turbo": "^2.0.1"

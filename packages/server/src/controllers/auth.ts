@@ -129,7 +129,7 @@ export const signOut: RequestHandler = async (req, res) => {
     if (!user) return sendErrorRes(res, 'Unauthorized Request, user not found!', Codes.UNAUTHORIZED)
     user.tokens = user.tokens.filter(t => t !== req.body.refreshToken)
     await user.save()
-    res.send()
+    res.send({ message: 'Signed out successfully!' })
 }
 
 export const generateForgotPasswordLink: RequestHandler = async (req, res) => {

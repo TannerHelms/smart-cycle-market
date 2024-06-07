@@ -43,6 +43,7 @@ export function NewListing(props: NewListingProps) {
     const [selectedImage, setSelectedImage] = React.useState('')
     const [showImageOptions, setShowImageOptions] = React.useState(false)
     const [images, setImages] = React.useState<string[]>([])
+    const [loading, setLoading] = React.useState(false)
 
     const { category, name, description, price, purchasingDate } = productInfo
 
@@ -83,13 +84,16 @@ export function NewListing(props: NewListingProps) {
         for (let img of newImages) {
             form.append('images', img as any)
         }
-
-        const res = await runAxiosAsync<{ message: string }>(authClient.post('/product/list', form, {
+        setLoading(true)
+        const res = await runAxiosAsync<{ message: string }>(authClient.post('/product', form, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         }))
+        setLoading(false)
         if (res) showMessage({ message: "Product created successfully!", type: 'success' })
+        setProductInfo(defaultInfo)
+        setImages([])
     }
 
     const handleOnImageSelection = async () => {
@@ -169,7 +173,7 @@ export function NewListing(props: NewListingProps) {
                     }}
                 />
                 <FormInput placeholder='description' value={description} multiline numberOfLines={4} onChangeText={handleChange('description')} />
-                <Button title='List Product' onPress={handleSubmit} />
+                <Button title='List Product' onPress={handleSubmit} loading={loading} />
             </SafeAreaView >
         </Keyboard>
     );

@@ -8,7 +8,7 @@ export function SignedIn(props: { children: ReactNode }) {
     return loggedIn ? props.children : null
 }
 
-export function SignedOut(props: { children: React.ReactNode }) {
+export function SignedOut(props: { authState: AuthSTat,children: React.ReactNode }) {
     const authState = useSelector(getAuthState)
     const loggedIn = authState.profile ? true : false
     return loggedIn ? null : props.children
