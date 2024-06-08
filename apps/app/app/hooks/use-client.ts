@@ -1,6 +1,6 @@
 import { Keys, asyncStorage } from "@utils/async-storage";
-import { baseUrl } from "api/client";
-import { runAxiosAsync } from "api/run-axios-async";
+import { baseUrl } from "app/api/client";
+import { runAxiosAsync } from "app/api/run-axios-async";
 import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,8 +15,9 @@ type Response = {
 
 const authClient = axios.create({
     baseURL: baseUrl,
-    timeout: 5000
+    timeout: 10000,
 })
+
 const useClient = () => {
     const dispatch = useDispatch()
     const authState = useSelector(getAuthState)

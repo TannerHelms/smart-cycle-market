@@ -8,7 +8,7 @@ export interface SafeAreaViewProps {
 
 export function SafeAreaView(props: SafeAreaViewProps) {
     return (
-        <View style={{ paddingTop: statusBarPadding }} className='mt-5 px-5'>
+        <View style={{ paddingTop: statusBarPadding }} className='px-5 flex-1'>
             {props.children}
         </View>
     );

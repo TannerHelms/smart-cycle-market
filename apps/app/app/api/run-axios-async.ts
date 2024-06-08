@@ -13,7 +13,11 @@ export const runAxiosAsync = async <T>(promise: Promise<AxiosResponse<T>>): Prom
                 message = response.data.message
             }
         }
-        showMessage({ message: `${(error as any).response.status.toString()} - ${message}`, type: 'danger' })
+        if (!(error as any).response) {
+            showMessage({ message: `400 Network Error - ${message}`, type: 'danger' })
+        } else {
+            showMessage({ message: `${(error as any).response.status.toString()} - ${message}`, type: 'danger' })
+        }
     }
     return null
 }

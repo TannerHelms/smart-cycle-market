@@ -41,6 +41,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "types": "1.0.0",
     "@babel/core": "^7.20.0",
     "@types/luxon": "^3.4.2",
     "@types/react": "~18.2.45",

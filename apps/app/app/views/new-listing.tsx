@@ -10,7 +10,7 @@ import categories from '@utils/categories';
 import colors from '@utils/colors';
 import { FormInput } from '@utils/text';
 import { newProductSchema, yupValidate } from '@utils/validator';
-import { runAxiosAsync } from 'api/run-axios-async';
+import { runAxiosAsync } from 'app/api/run-axios-async';
 import useClient from 'app/hooks/use-client';
 import * as ImagePicker from 'expo-image-picker';
 import mime from 'mime';
@@ -115,6 +115,7 @@ export function NewListing(props: NewListingProps) {
     return (
         <Keyboard>
             <SafeAreaView>
+
                 <View className='flex-row'>
                     <Pressable className='mb-3' onPress={handleOnImageSelection}>
                         <View className='items-center justify-center mb-3 w-[70] h-[70] border-2 rounded-md' style={{ borderColor: colors.primary }}>
