@@ -4,7 +4,7 @@ import { BackButton } from '@ui/back-button';
 import { ProductImage } from '@ui/product-image';
 import { SafeAreaView } from '@ui/safe-area-view';
 import { size } from '@utils/size';
-import { runAxiosAsync } from 'app/api/run-axios-async';
+import { runAxiosAsync } from '@components/api/run-axios-async';
 import useClient from 'app/hooks/use-client';
 import { useListings } from 'app/hooks/use-product';
 import { ProfileNavigatorProps, ProfileStackParamList } from 'app/navigator/profile-navigator';
@@ -16,14 +16,14 @@ export interface ListingsProps {
 }
 
 export function Listings(props: ListingsProps) {
-    const { listings, loading } = useListings()
+    const { listings, loading, fetchListing } = useListings()
     const { navigate } = useNavigation<NavigationProp<ProfileStackParamList>>()
 
     return (
         <SafeAreaView>
             <AppHeader backButton={<BackButton />} />
             <View className='h-full'>
-                <FlatList data={listings} contentContainerStyle={{ paddingBottom: 10 }} keyExtractor={(item) => item._id} renderItem={({ item }) => {
+                <FlatList refreshing={loading} onRefresh={fetchListing} data={listings} contentContainerStyle={{ paddingBottom: 10 }} keyExtractor={(item) => item._id} renderItem={({ item }) => {
                     return (
                         <Pressable style={{ marginBottom: size.padding }} onPress={() => navigate("ListingDetails", { product: item })}>
                             <ProductImage uri={item.thumbnail} />

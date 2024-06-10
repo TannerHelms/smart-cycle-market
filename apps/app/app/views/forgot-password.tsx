@@ -7,7 +7,7 @@ import { WelcomeHeader } from '@ui/welcome-header';
 import { FormInput } from '@utils/text';
 import { emailRegex } from '@utils/validator';
 import client from 'app/api/client';
-import { runAxiosAsync } from 'app/api/run-axios-async';
+import { runAxiosAsync } from "app/api/run-axios-async";
 import { AuthStackParamList } from 'app/navigator/auth-navigator';
 import { useState } from 'react';
 import { Platform, ScrollView, View } from 'react-native';

@@ -9,6 +9,9 @@ module.exports = {
         "deActive": "#DCE4F2",
         "backDrop": "rgba(0, 0, 0, 0.5)",
         "active": "#0081F1"
+      },
+      padding: {
+        "app": "8px"
       }
     },
   },

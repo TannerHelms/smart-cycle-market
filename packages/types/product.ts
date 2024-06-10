@@ -32,6 +32,6 @@ export interface Product {
     description: string;
 }
 
-export type Products = {
+export type ProductListings = {
     products: Product[]
 }

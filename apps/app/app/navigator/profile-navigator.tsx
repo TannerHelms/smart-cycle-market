@@ -1,8 +1,8 @@
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { statusBarPadding } from '@utils/status-bar';
+import { ChatWindow } from '@views/chat-window';
 import { Chats } from '@views/chats';
-import { Home } from '@views/home';
 import { ListingDetails } from '@views/listing-details';
 import { Listings } from '@views/listings';
 import { Profile } from '@views/profile';
@@ -14,6 +14,7 @@ export type ProfileStackParamList = {
     Chats: undefined;
     Listings: undefined;
     ListingDetails: { product?: Product };
+    ChatWindow: undefined;
 }
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
@@ -34,6 +35,7 @@ export function ProfileNavigator(props: ProfileNavigatorProps) {
             <Stack.Screen name="Chats" component={Chats} />
             <Stack.Screen name="Listings" component={Listings} />
             <Stack.Screen name="ListingDetails" component={ListingDetails} />
+            <Stack.Screen name="ChatWindow" component={ChatWindow} />
         </Stack.Navigator>
     );
 }

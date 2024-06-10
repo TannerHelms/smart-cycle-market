@@ -4,7 +4,6 @@ import { LoadingSpinner } from '@ui/loading-spinner';
 import { SignedIn, SignedOut } from '@utils/auth';
 import colors from '@utils/colors';
 import client from 'app/api/client';
-import { runAxiosAsync } from 'app/api/run-axios-async';
 import useAuth from 'app/hooks/use-auth';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,6 +12,7 @@ import { AuthNavigator } from './auth-navigator';
 import TabNavigator from './tab-navigator';
 import useClient from 'app/hooks/use-client';
 import { Keys, asyncStorage } from '@utils/async-storage';
+import { runAxiosAsync } from 'app/api/run-axios-async';
 
 const MyTheme = {
     ...DefaultTheme,

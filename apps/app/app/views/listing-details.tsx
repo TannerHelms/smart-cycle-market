@@ -16,6 +16,8 @@ import { Row } from '@ui/core';
 import useClient from 'app/hooks/use-client';
 import { useListings } from 'app/hooks/use-product';
 import { LoadingSpinner } from '@ui/loading-spinner';
+import { AntDesign } from '@expo/vector-icons'
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 type ListingDetailsProps = NativeStackScreenProps<ProfileStackParamList, 'ListingDetails'>
 
@@ -38,6 +40,7 @@ export function ListingDetails(props: ListingDetailsProps) {
     const { authState } = useAuth()
     const product = props.route.params.product
     const isAdmin = authState.profile?.id === product?.owner._id
+    const { navigate } = useNavigation<NavigationProp<ProfileStackParamList>>()
 
     const confirmDelete = async () => {
         setLoading(true)
@@ -63,7 +66,12 @@ export function ListingDetails(props: ListingDetailsProps) {
         <SafeAreaView>
             <AppHeader backButton={<BackButton />} right={<OptionButton visible={isAdmin} onPress={() => setShowMenu(true)} />} />
             {product && (
-                <ProductDetail product={product} />
+                <>
+                    <ProductDetail product={product} />
+                    <Pressable className='w-[50] h-[50] items-center justify-center rounded-full bg-active absolute bottom-5 right-5' onPress={() => navigate("ChatWindow")}>
+                        <AntDesign name="message1" size={20} color="white" />
+                    </Pressable>
+                </>
             )}
             <OptionModal
                 options={menuOptions}
